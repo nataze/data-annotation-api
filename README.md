@@ -45,19 +45,18 @@ The API will be available at `http://localhost:{{PORT}}` (default `5000`).
 
 ## API Endpoints
 
-| Method | Endpoint                                      | Body                                               | Description                      |
-|--------|-----------------------------------------------|----------------------------------------------------|----------------------------------|
-| GET    | `/health`                                     | —                                                  | Health check                     |
-| POST   | `/api/projects`                               | `{ name, description? }`                           | Create project                   |
-| POST   | `/api/projects/:projectId/images`             | `{ uri, width, height }`                           | Register image                   |
-| POST   | `/api/images/:imageId/annotations`            | `{ annotator, label, mask, bbox, metadata? }`      | Create annotation                |
-| GET    | `/api/annotations/:annotationId`              | —                                                  | Retrieve annotation by ID        |
-| GET    | `/api/annotations`                            | `?label=&annotator=`                               | Filtered list of annotations     |
-| GET    | `/api/annotations/:annotationId/rank`         | —                                                  | Compute area rank within image   |
+| Method | Endpoint                                                       | Body                                               | Description                           |
+|--------|----------------------------------------------------------------|----------------------------------------------------|---------------------------------------|
+| GET    | `/health`                                                      | —                                                  | Health check                          |
+| POST   | `/api/v1/projects`                                             | `{ name, description? }`                           | Create project                        |
+| POST   | `/api/v1/projects/:projectId/images`                           | `{ uri, width, height }`                           | Register image                        |
+| POST   | `/api/v1/images/:imageId/annotations`                          | `{ annotator, label, mask, bbox, metadata? }`      | Create annotation                     |
+| GET    | `/api/v1/images/:imageId/annotations/:id`                      | —                                                  | Retrieve annotation by ID             |
+| GET    | `/api/v1/images/:imageId/annotations?label=&annotator=`        | —                                                  | List or Filter annotations by label/annotator |
+| GET    | `/api/v1/images/:imageId/annotations/:id/rank`                 | —                                                  | Compute annotation area rank (1 = largest) |                                                 | Compute area rank within image   |
 
 > **Note:**  
 > - `mask` = array of polygons (`number[][][]`)  
 > - `bbox` = `{ x, y, width, height }`  
-> - `metadata` = optional SAM/custom JSON  
-> - All resources include `createdAt` & `updatedAt`
+> - `metadata` = optional SAM/custom JSON
 ---
