@@ -1,0 +1,110 @@
+{
+  "info": {
+    "name": "Data Annotation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "projectId", "value": "" },
+    { "key": "imageId", "value": "" },
+    { "key": "annotationId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Create Project",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"My Project\",\n  \"description\": \"Sample project\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/projects",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","projects"]
+        }
+      }
+    },
+    {
+      "name": "Register Image",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uri\": \"https://example.com/img.png\",\n  \"width\": 800,\n  \"height\": 600\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/projects/{{projectId}}/images",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","projects","{{projectId}}","images"]
+        }
+      }
+    },
+    {
+      "name": "Create Annotation",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"annotator\": \"user1\",\n  \"label\": \"car\",\n  \"mask\": [ [[10,10],[100,10],[100,100],[10,100]] ],\n  \"bbox\": { \"x\":10, \"y\":10, \"width\":90, \"height\":90 },\n  \"metadata\": { \"predicted_iou\":0.9, \"stability_score\":0.8 }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/images/{{imageId}}/annotations",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","images","{{imageId}}","annotations"]
+        }
+      }
+    },
+    {
+      "name": "List/Filter Annotations",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/images/{{imageId}}/annotations?label=car&annotator=user1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","images","{{imageId}}","annotations"],
+          "query": [
+            { "key": "label", "value": "car" },
+            { "key": "annotator", "value": "user1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Annotation by ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/images/{{imageId}}/annotations/{{annotationId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","images","{{imageId}}","annotations","{{annotationId}}"]
+        }
+      }
+    },
+    {
+      "name": "Get Annotation Rank",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/images/{{imageId}}/annotations/{{annotationId}}/rank",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","images","{{imageId}}","annotations","{{annotationId}}","rank"]
+        }
+      }
+    }
+  ]
+}
