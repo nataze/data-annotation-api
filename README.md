@@ -1,6 +1,6 @@
 # Data Annotation API
 
-A minimal Express + TypeScript + MongoDB service for managing image annotation projects and segmentation masks.
+A minimal Express, TypeScript, and MongoDB service for managing image annotation projects and segmentation masks.
 
 ---
 
